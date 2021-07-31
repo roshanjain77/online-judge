@@ -2,7 +2,7 @@ First create a new user named "guest"
 change the owner of "guest" to "roshan" -- now only roshan has write access, guest group still has read and execute permissions
 
 There are two things we need to stop:
-* Execution of harmful scrips (schroot)
+* Execution of harmful scrips (schroot) -- you can run system("shutdown now") without sudo permissions
 * Deny write access to the candidate (changing owner of guest directory)
 
 Install schroot with user as "guest", as we will activate schroot with guest to avoid write permissions.
@@ -24,3 +24,4 @@ So we save the answer using "roshan" user, that is the reson why the ( > {DIR}/{
 
 # TODO
 There is still a thing left, that you need to look into -> "exit" command.
+
