@@ -1,0 +1,26 @@
+First create a new user named "guest"
+change the owner of "guest" to "roshan" -- now only roshan has write access, guest group still has read and execute permissions
+
+There are two things we need to stop:
+* Execution of harmful scrips (schroot)
+* Deny write access to the candidate (changing owner of guest directory)
+
+Install schroot with user as "guest", as we will activate schroot with guest to avoid write permissions.
+
+Using schroot with roshan would not be good as the user will be able to write.
+
+final cmd = 'sudo su - guest -c "schroot -c compile-run -- timeout {ques.timelimit} {cmd} < {DIR}/{submission_id}.tc" > {DIR}/{submission_id}.out'
+
+sudo su - guest -> changes current user to guest
+guest -c -> gives cmd as the guest user
+"schroot -c compile-run -- timeout {ques.timelimit} {cmd} < {DIR}/{submission_id}.tc" -> run the script inside schroot (compile-run is just the name of the env)
+
+as the guest has read permissions, so it can read the testcases ( < {DIR}/{submission_id}.tc )
+
+but how to save the answers of the executed script as the guest doesn't have the write permissions
+
+So we save the answer using "roshan" user, that is the reson why the ( > {DIR}/{submission_id}.out ) is outside the quotes
+
+
+# TODO
+There is still a thing left, that you need to look into -> "exit" command.
